@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const studentSchema = new mongoose.Schema({
-    name: {type: String},
-    age: {type: String}
+    name: {type: String, required: true, default: ''},
+    age: {type: String, required: true, default: '0'}
 });
 
 const studentModel = new mongoose.model('StudentObj', studentSchema, 'Students');
