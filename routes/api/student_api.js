@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const studentModel = require('../../model/student');
+const { sendEmailFunction } = require('../../config/mail_config');
 
 router.get("/getStudent", async (req, res) => {
   try {
@@ -59,5 +60,14 @@ router.delete('/deleteStudent/:_id', async (req, res) => {
     
   }
 })
+
+router.get('/sendEmail', async (req, res) => {
+  try {
+    sendEmailFunction();
+    res.end();
+  } catch (error) {
+    console.log('Error: ' + error);
+  }
+});
 
 module.exports = router;

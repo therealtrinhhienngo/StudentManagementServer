@@ -2,18 +2,18 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-const { connectMongoDB } = require('./mongoDB_config');
 var logger = require('morgan');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 // Web 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var studentRouter = require('./routes/web/student_router');
 
 // API
 var studentApiRouter = require('./routes/api/student_api');
+var userApiRouter = require('./routes/api/user_api');
+const { connectMongoDB } = require('./config/mongoDB_config');
 
 var app = express();
 
@@ -30,11 +30,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended: true}));
+// app.use(bodyParser.json);
 
 // API route
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/studentsApi', studentApiRouter);
+app.use('/userApi', userApiRouter);
 
 // Web route
 app.use('/studentRoute', studentRouter);
